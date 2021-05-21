@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pixifybot",
+  "private_key_id": "86c9ef6c73b99e5c7afe22e03407e64da1f6dcd4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGf1igBd95cmDe\n4lJ4X1D6tExZuv4cWoPe2J+gsIoNNftnplRxmO3/Fb3FPS7x023B7az6h8mX/HLG\n8SZjpM0YwKv+zbhA5Cstc6+pe2qf5XLzBgGOqJn5BfUY5vJKGF0qP3yuqUjNeL8D\nBpBK2joq2z7lySzqzJFK4iDuLaYIdo4sBjeqQtpXOOSi+Lu4LRDkmNGWvOvcxVig\n9fhwj7LVGdPWfJjWlJ0aB0fXxFwy0WBmf1q7jngoVODsl6VjHB71I1mO9DESyWYE\nTVy2DTaJuozidSh04pRDuQ8Gopi0MDIl+XZGxosLr18Jb9C1rMWpQojATqoSCieE\nlBSO4t4BAgMBAAECggEAD6JTGX4s7P9bGDhXijSTsmiwr3aWHNHs8LM7gL1hj4sm\nFd1Yvv5ubGN1fXYFXwr/P5bX7imeHAhIWq6pY+VvOVkKPaOitLW5SDdZlBiXkX18\nfB4H0bPU4MjH1mIbnkYPUcxgpnnIiqp30lCvh73AIW+q+Lqg0jjc5BAty3oGnu7i\nf1NR88cPEwB3cncogPQJIZ8sgiwaaPL9N6rDReaaMPg9bVzUcRKa5Ta52yxvkkFt\ntIaLofeCwNExKAM9JYaw5Dt+9Amw6C9qqaCTJtDhzKFohR7yj8+wtqpJF5G+omR5\nv40PKMF7cw55bKXN5InFytjAHa5nEBaZAKs3HrXdOwKBgQD7FbF5gkHekkhPW/xC\nZOincoDBUHG4pW/rCM4DcFdUx06mx2NE7X2cIlJ+T7xZYGBFtTtLlGSDasgsIsIa\njzsZP00EAdL4rqxr6VqEzwfZzBB33XJwhvGmsuCj7dJgH1v+mHYqkQIGFLB1LM70\nSrchdtpyZ7fBfcWP8J8380QaawKBgQDKYhzV8Lz4uXb+6uRKK+/GMldfhKU4AfmH\nas+XInaasktxBgbhRMvrOrHIhQhpg9vgIa0xOVduiYcFSYEsdd8zHB+xM2W63VLF\nIsf0cP3xL4pNCRIbzO565s0sIIRUthn/wgsVh1TniFQq+2P9W0eFw7vUdngsJO2O\nmKpbJxTcQwKBgQCgCVexhyDM6JhGXO8QspjIAeenT8rsUiZfvKDy+Cvx0YeELhpL\n2MPzPL0v3UrD/PXf+H/u0IqwaONlnlHx89FLalmAcFk0QMGNlpMni34JiFQG0pMa\nvihQhDtCwVcSBWrxf+PxhbOwhIdkaEcQ1n6bSdI6kXlCTxQZhtk1JE0IOQKBgQCH\njqoT3tkknE2JN9pLmBxVm/iMITPtTN1PiAqeB9Z7jbscbFYFY2hXGgxk7D6TNl/7\nQ3NXSjo27uVCdFaSai1jdY4AyhV00bQUGVTndRuTBi3TpaS8fEqshZWd3fXlK8hE\nWDvGYsxK/TSrSZFS7WX9wfo4uFWL8/wujDFnNskxMwKBgFFP8TEW28uSIOs/Qr2r\nCtkigvEjlUDU8tebwsc1svWsI++q2OeF8nALYLzboQ872sb+AQyZKf2mjBsxOzL/\nqMfqnw2yLH8LwARGjHFH3EWnkwc9iQaFAdpPNCvMRuxupIwWxQJlBPsenfEPuKAK\nuWeItdw0v+hR0AM1AxTqA3nZ\n-----END PRIVATE KEY-----\n",
+  "client_email": "sheets-api@pixifybot.iam.gserviceaccount.com",
+  "client_id": "113655118090607623688",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheets-api%40pixifybot.iam.gserviceaccount.com"
+}
