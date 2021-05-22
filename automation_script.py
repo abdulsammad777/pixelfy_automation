@@ -1,38 +1,31 @@
-from operator import contains
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
 import time
-from time import sleep
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-
-
 chromeOptions = Options()
-# chromeOptions.add_argument("--kiosk")
 chromeOptions.add_argument("--start-maximized")
 chromeOptions.add_experimental_option("detach", True)
 chromeOptions.add_experimental_option('useAutomationExtension', False)
 
-# user_profile_path="C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1"
-
-# chromeOptions.add_argument("user-data-dir=C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
-# options.add_experimental_option("excludeSwitches", ["enable-automation"])
 
 # driver = webdriver.Chrome(executable_path='C:/Program Files (x86)/chromedriver.exe')
 driver = webdriver.Chrome(options=chromeOptions)
+# executor_url = driver.command_executor._url
+# session_id = driver.session_id
 driver.implicitly_wait(0.5)
-driver.get('https://app.pixelfy.me/sign-in')
-
+# driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
+# driver.close()   # this prevents the dummy browser
+# driver.session_id = session_id
 
 def check_login(get_current_url):
+    # driver.refresh()
     if get_current_url == 'https://app.pixelfy.me/dashboard':
         return True
     else:
         return False
 def Login(email, password):
-    # driver.refresh()
+    driver.get('https://app.pixelfy.me/sign-in')
     get_current_url = driver.current_url
     if check_login(get_current_url) is False:
         try:
@@ -67,8 +60,8 @@ def Modify_Tracking_links(sheetUrls, link_name):
             if get_url != sheetUrls[index]:
                 input_tag.clear()
                 input_tag.send_keys(sheetUrls[index])
-        # save_button = driver.find_element_by_id("form-submit")
-        # save_button.click()
+        save_button = driver.find_element_by_id("form-submit")
+        save_button.click()
     elif total_urls_to_update > total_avalilable_urls and containers != []:
         for index in range(0, total_avalilable_urls):
             input_tag = containers[index].find_element_by_xpath(".//fieldset//input[@type='text']")
@@ -89,7 +82,7 @@ def Modify_Tracking_links(sheetUrls, link_name):
             input_tag.clear()
             input_tag.send_keys(sheetUrls[index])
         save_button = driver.find_element_by_id("form-submit")
-        # save_button.click()
+        save_button.click()
     elif containers == []:
         for index in range(total_urls_to_update):
             add_field = driver.find_element_by_id("addFieldBtn")
@@ -101,7 +94,7 @@ def Modify_Tracking_links(sheetUrls, link_name):
             input_tag.clear()
             input_tag.send_keys(sheetUrls[index])
         save_button = driver.find_element_by_id("form-submit")
-        # save_button.click()
+        save_button.click()
 
 
 
