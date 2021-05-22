@@ -55,8 +55,8 @@ def Modify_Tracking_links(sheetUrls, link_name):
             if get_url != sheetUrls[index]:
                 input_tag.clear()
                 input_tag.send_keys(sheetUrls[index])
-        save_button = driver.find_element_by_id("form-submit")
-        save_button.click()
+        # save_button = driver.find_element_by_id("form-submit")
+        # save_button.click()
     elif total_urls_to_update > total_avalilable_urls and containers != []:
         for index in range(0, total_avalilable_urls):
             input_tag = containers[index].find_element_by_xpath(".//fieldset//input[@type='text']")
@@ -120,7 +120,7 @@ if __name__ == "__main__":
                 'https://www.facebook.com/125', 'https://www.facebook.com/126', 'https://www.facebook.com/127',
                 'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130']
 
-    Modify_Tracking_links("Test 3", urls)
+    Modify_Tracking_links(urls, "Test 3")
 
 
 
