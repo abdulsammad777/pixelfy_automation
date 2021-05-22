@@ -12,8 +12,9 @@ from selenium.webdriver.chrome.options import Options
 chromeOptions = Options()
 # chromeOptions.add_argument("--kiosk")
 chromeOptions.add_argument("--start-maximized")
+# user_profile_path="C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1"
 
-# options.add_argument("--user-data-dir=chrome-data")
+# chromeOptions.add_argument("user-data-dir=C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
 # options.add_experimental_option("excludeSwitches", ["enable-automation"])
 # options.add_experimental_option('useAutomationExtension', False)
 
@@ -34,7 +35,7 @@ def Login(email, password):
     signin = driver.find_element_by_id('sign-in-form-button')
     signin.click()
 
-def Modify_Tracking_links(link_name, sheetUrls):
+def Modify_Tracking_links(sheetUrls, link_name):
     link_url = driver.find_element_by_link_text('My Tracking Links').get_attribute("href")
     driver.get(link_url)
     link_name_url = driver.find_element(By.XPATH, '//a[text()="'+link_name+'"]').get_attribute("href")
@@ -42,12 +43,6 @@ def Modify_Tracking_links(link_name, sheetUrls):
     url = "/edit-tracking-links?trlinkID="+name_id[1]
     edit_icon = driver.find_element(By.XPATH, '//a[@href="'+url+'"]')
     edit_icon.click()
-    url = 31
-    # input_tag = driver.find_element_by_xpath('/label[@label="Destination URL 31"]')
-    url = "Destination URL " + str(url)
-    input_tag = driver.find_element_by_xpath('//label[contains(text(),"'+url+'"]')
-    # input_tag = driver.find_element_by_xpath('//div[@label="Destination URL "+' +str(url)+ '"]')
-
 
     containers = driver.find_elements_by_xpath('//div[@class="col-md-12 addinput position-relative"]')
     total_urls_to_update = len(sheetUrls)
@@ -62,7 +57,7 @@ def Modify_Tracking_links(link_name, sheetUrls):
                 input_tag.send_keys(sheetUrls[index])
         save_button = driver.find_element_by_id("form-submit")
         save_button.click()
-    elif total_urls_to_update > total_avalilable_urls:
+    elif total_urls_to_update > total_avalilable_urls and containers != []:
         for index in range(0, total_avalilable_urls):
             input_tag = containers[index].find_element_by_xpath(".//fieldset//input[@type='text']")
             get_url = input_tag.get_attribute("value")
@@ -70,20 +65,31 @@ def Modify_Tracking_links(link_name, sheetUrls):
                 input_tag.clear()
                 input_tag.send_keys(sheetUrls[index])
         for index in range(total_avalilable_urls, total_urls_to_update):
-            url = index + 1
+            # url_no = index + 1
             add_field = driver.find_element_by_id("addFieldBtn")
             add_field.click()
-            input_tag = driver.find_element_by_xpath("//label[contains(text(),'Destination URL 31')]")
-
+            # url = "Destination URL " + str(url_no)
+            # input_tag = driver.find_element_by_xpath("//label[contains(text(),'"+url+"')]")
+            containers = driver.find_elements_by_xpath('//div[@class="col-md-12 addinput position-relative"]')
+            containers[-1].find_element_by_xpath(
+                ".//div//select[@class='form-control selectron']/option[@value='0']").click()
+            input_tag = containers[-1].find_element_by_xpath(".//div//input[@type='text']")
+            input_tag.clear()
+            input_tag.send_keys(sheetUrls[index])
         save_button = driver.find_element_by_id("form-submit")
-        save_button.click()
-
-
-
-
-
-
-
+        # save_button.click()
+    elif containers == []:
+        for index in range(total_urls_to_update):
+            add_field = driver.find_element_by_id("addFieldBtn")
+            add_field.click()
+            containers = driver.find_elements_by_xpath('//div[@class="col-md-12 addinput position-relative"]')
+            containers[-1].find_element_by_xpath(
+                ".//div//select[@class='form-control selectron']/option[@value='0']").click()
+            input_tag = containers[-1].find_element_by_xpath(".//div//input[@type='text']")
+            input_tag.clear()
+            input_tag.send_keys(sheetUrls[index])
+        save_button = driver.find_element_by_id("form-submit")
+        # save_button.click()
 
 
 
@@ -97,7 +103,7 @@ def Modify_Tracking_links(link_name, sheetUrls):
 
 if __name__ == "__main__":
     Login('lap318181@gmail.com', 'ZEV4JY901n7')
-    urls =  ['https://www.facebook.com/101', 'https://www.facebook.com/102', 'https://www.facebook.com/103',
+    urls = ['https://www.facebook.com/101', 'https://www.facebook.com/102', 'https://www.facebook.com/103',
                  'https://www.facebook.com/104', 'https://www.facebook.com/105', 'https://www.facebook.com/106',
                  'https://www.facebook.com/107', 'https://www.facebook.com/108', 'https://www.facebook.com/109',
                  'https://www.facebook.com/110', 'https://www.facebook.com/111', 'https://www.facebook.com/112',
@@ -106,7 +112,13 @@ if __name__ == "__main__":
                  'https://www.facebook.com/119', 'https://www.facebook.com/120', 'https://www.facebook.com/121',
                  'https://www.facebook.com/122', 'https://www.facebook.com/123', 'https://www.facebook.com/124',
                  'https://www.facebook.com/125', 'https://www.facebook.com/126', 'https://www.facebook.com/127',
-                 'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130']
+                 'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130',
+                'https://www.facebook.com/113', 'https://www.facebook.com/114', 'https://www.facebook.com/115',
+                'https://www.facebook.com/116', 'https://www.facebook.com/117', 'https://www.facebook.com/118',
+                'https://www.facebook.com/119', 'https://www.facebook.com/120', 'https://www.facebook.com/121',
+                'https://www.facebook.com/122', 'https://www.facebook.com/123', 'https://www.facebook.com/124',
+                'https://www.facebook.com/125', 'https://www.facebook.com/126', 'https://www.facebook.com/127',
+                'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130']
 
     Modify_Tracking_links("Test 3", urls)
 
