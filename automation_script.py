@@ -12,15 +12,19 @@ from selenium.webdriver.chrome.options import Options
 chromeOptions = Options()
 # chromeOptions.add_argument("--kiosk")
 chromeOptions.add_argument("--start-maximized")
+chromeOptions.add_experimental_option("detach", True)
+chromeOptions.add_experimental_option('useAutomationExtension', False)
+
 # user_profile_path="C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1"
 
 # chromeOptions.add_argument("user-data-dir=C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
 # options.add_experimental_option("excludeSwitches", ["enable-automation"])
-# options.add_experimental_option('useAutomationExtension', False)
 
 # driver = webdriver.Chrome(executable_path='C:/Program Files (x86)/chromedriver.exe')
 driver = webdriver.Chrome(options=chromeOptions)
 driver.implicitly_wait(0.5)
+driver.get('https://app.pixelfy.me/sign-in')
+
 
 def check_login(get_current_url):
     if get_current_url == 'https://app.pixelfy.me/dashboard':
@@ -28,19 +32,21 @@ def check_login(get_current_url):
     else:
         return False
 def Login(email, password):
-    driver.get('https://app.pixelfy.me/sign-in')
+    # driver.refresh()
     get_current_url = driver.current_url
     if check_login(get_current_url) is False:
-        email_id = driver.find_element_by_id("email")
-        password_id = driver.find_element_by_id("password")
-        email_id.clear()
-        password_id.clear()
-        email_id.send_keys(email)
-        password_id.send_keys(password)
-        # email.send_keys(Keys.RETURN)
-        signin = driver.find_element_by_id('sign-in-form-button')
-        signin.click()
-
+        try:
+            email_id = driver.find_element_by_id("email")
+            password_id = driver.find_element_by_id("password")
+            email_id.clear()
+            password_id.clear()
+            email_id.send_keys(email)
+            password_id.send_keys(password)
+            # email.send_keys(Keys.RETURN)
+            signin = driver.find_element_by_id('sign-in-form-button')
+            signin.click()
+        except Exception as e:
+            print(e, 'Found This Error')
 def Modify_Tracking_links(sheetUrls, link_name):
     link_url = driver.find_element_by_link_text('My Tracking Links').get_attribute("href")
     driver.get(link_url)
