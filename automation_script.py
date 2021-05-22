@@ -22,18 +22,24 @@ chromeOptions.add_argument("--start-maximized")
 driver = webdriver.Chrome(options=chromeOptions)
 driver.implicitly_wait(0.5)
 
-
+def check_login(get_current_url):
+    if get_current_url == 'https://app.pixelfy.me/dashboard':
+        return True
+    else:
+        return False
 def Login(email, password):
     driver.get('https://app.pixelfy.me/sign-in')
-    email_id = driver.find_element_by_id("email")
-    password_id = driver.find_element_by_id("password")
-    email_id.clear()
-    password_id.clear()
-    email_id.send_keys(email)
-    password_id.send_keys(password)
-    # email.send_keys(Keys.RETURN)
-    signin = driver.find_element_by_id('sign-in-form-button')
-    signin.click()
+    get_current_url = driver.current_url
+    if check_login(get_current_url) is False:
+        email_id = driver.find_element_by_id("email")
+        password_id = driver.find_element_by_id("password")
+        email_id.clear()
+        password_id.clear()
+        email_id.send_keys(email)
+        password_id.send_keys(password)
+        # email.send_keys(Keys.RETURN)
+        signin = driver.find_element_by_id('sign-in-form-button')
+        signin.click()
 
 def Modify_Tracking_links(sheetUrls, link_name):
     link_url = driver.find_element_by_link_text('My Tracking Links').get_attribute("href")
