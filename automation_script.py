@@ -29,7 +29,13 @@ def check_login(get_current_url):
     else:
         return False
 def Login(email, password):
-    driver.get('https://app.pixelfy.me/dashboard')
+    try:
+        driver.get('https://app.pixelfy.me/dashboard')
+        myElem = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'email')))
+    except TimeoutException:
+        driver.refresh()
+
+
     get_current_url = driver.current_url
     if check_login(get_current_url) is False:
         try:
@@ -44,10 +50,6 @@ def Login(email, password):
             signin.click()
         except Exception as e:
             print(e, 'Found This Error')
-        # try:
-        #     myElem = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'email')))
-        # except TimeoutException:
-        #     driver.refresh()
 def Modify_Tracking_links(sheetUrls, link_name):
     link_url = driver.find_element_by_link_text('My Tracking Links').get_attribute("href")
     driver.get(link_url)
