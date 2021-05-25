@@ -1,6 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 chromeOptions = Options()
@@ -18,6 +20,8 @@ driver.implicitly_wait(0.5)
 # driver.close()   # this prevents the dummy browser
 # driver.session_id = session_id
 
+# driver.get('https://app.pixelfy.me/sign-in')
+
 def check_login(get_current_url):
     # driver.refresh()
     if get_current_url == 'https://app.pixelfy.me/dashboard':
@@ -25,7 +29,7 @@ def check_login(get_current_url):
     else:
         return False
 def Login(email, password):
-    driver.get('https://app.pixelfy.me/sign-in')
+    driver.get('https://app.pixelfy.me/dashboard')
     get_current_url = driver.current_url
     if check_login(get_current_url) is False:
         try:
@@ -40,6 +44,10 @@ def Login(email, password):
             signin.click()
         except Exception as e:
             print(e, 'Found This Error')
+        # try:
+        #     myElem = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'email')))
+        # except TimeoutException:
+        #     driver.refresh()
 def Modify_Tracking_links(sheetUrls, link_name):
     link_url = driver.find_element_by_link_text('My Tracking Links').get_attribute("href")
     driver.get(link_url)
@@ -103,29 +111,6 @@ def Modify_Tracking_links(sheetUrls, link_name):
         # (By.XPATH, "//span[contains(@class, 'md_countryName_fdxiah8') and text()='Colombia']")))
 
 
-
-
-
-if __name__ == "__main__":
-    Login('lap318181@gmail.com', 'ZEV4JY901n7')
-    urls = ['https://www.facebook.com/101', 'https://www.facebook.com/102', 'https://www.facebook.com/103',
-                 'https://www.facebook.com/104', 'https://www.facebook.com/105', 'https://www.facebook.com/106',
-                 'https://www.facebook.com/107', 'https://www.facebook.com/108', 'https://www.facebook.com/109',
-                 'https://www.facebook.com/110', 'https://www.facebook.com/111', 'https://www.facebook.com/112',
-                 'https://www.facebook.com/113', 'https://www.facebook.com/114', 'https://www.facebook.com/115',
-                 'https://www.facebook.com/116', 'https://www.facebook.com/117', 'https://www.facebook.com/118',
-                 'https://www.facebook.com/119', 'https://www.facebook.com/120', 'https://www.facebook.com/121',
-                 'https://www.facebook.com/122', 'https://www.facebook.com/123', 'https://www.facebook.com/124',
-                 'https://www.facebook.com/125', 'https://www.facebook.com/126', 'https://www.facebook.com/127',
-                 'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130',
-                'https://www.facebook.com/113', 'https://www.facebook.com/114', 'https://www.facebook.com/115',
-                'https://www.facebook.com/116', 'https://www.facebook.com/117', 'https://www.facebook.com/118',
-                'https://www.facebook.com/119', 'https://www.facebook.com/120', 'https://www.facebook.com/121',
-                'https://www.facebook.com/122', 'https://www.facebook.com/123', 'https://www.facebook.com/124',
-                'https://www.facebook.com/125', 'https://www.facebook.com/126', 'https://www.facebook.com/127',
-                'https://www.facebook.com/128', 'https://www.facebook.com/129', 'https://www.facebook.com/130']
-
-    Modify_Tracking_links(urls, "Test 3")
 
 
 
