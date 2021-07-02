@@ -1,26 +1,29 @@
+from operator import contains
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+import time
+from time import sleep
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+
+
 chromeOptions = Options()
+# chromeOptions.add_argument("--kiosk")
 chromeOptions.add_argument("--start-maximized")
 chromeOptions.add_experimental_option("detach", True)
 chromeOptions.add_experimental_option('useAutomationExtension', False)
 
+# user_profile_path="C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1"
 
-# driver = webdriver.Chrome(executable_path='C:/Program Files (x86)/chromedriver.exe')
-driver = webdriver.Chrome(options=chromeOptions)
-# executor_url = driver.command_executor._url
-# session_id = driver.session_id
+# chromeOptions.add_argument("user-data-dir=C:\\Users\\Abdul samad\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1")
+# options.add_experimental_option("excludeSwitches", ["enable-automation"])
+
+driver = webdriver.Chrome(executable_path='C:/Users/Hp/PycharmProjects/Pixify_sheets_automation/as_code/chromedriver.exe',options=chromeOptions)
+#driver = webdriver.Chrome(options=chromeOptions)
 driver.implicitly_wait(0.5)
-# driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
-# driver.close()   # this prevents the dummy browser
-# driver.session_id = session_id
-
-# driver.get('https://app.pixelfy.me/sign-in')
+driver.get('https://app.pixelfy.me/sign-in')
 
 def check_login(get_current_url):
     # driver.refresh()
@@ -105,15 +108,3 @@ def Modify_Tracking_links(sheetUrls, link_name):
             input_tag.send_keys(sheetUrls[index])
         save_button = driver.find_element_by_id("form-submit")
         save_button.click()
-
-
-
-    # element = WebDriverWait(driver, 20).until(EC.visibility_of_element_located(
-    #     (By.XPATH, '//a[text()="Test 3"]')))
-        # (By.XPATH, "//span[contains(@class, 'md_countryName_fdxiah8') and text()='Colombia']")))
-
-
-
-
-
-

@@ -1,12 +1,16 @@
+import time
 
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
-import automation_script as automation
+import as_code.automation_script as automation
+import logging
 
 main_sheet_url ="https://docs.google.com/spreadsheets/d/19r14YzTIblHyWHcvZMy9upKDYWW6sxKMpI3M30uaC8k/edit#gid=0"
 
 sheet_records = {}
+
+logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S',filename='app.log')
 
 
 def update_pixify_urls(url_list, title):
@@ -62,43 +66,75 @@ if __name__ == "__main__":
     # authorize the clientsheet
     client = gspread.authorize(creds)
 
+    logging.warning('Going to Start Script')
 
 
-    sheet = client.open_by_url(main_sheet_url)
-
-
-    sheet_instance = sheet.get_worksheet(0)
-
-    sheet_values = sheet_instance.get_all_values()
-    sub_sheet_row_index = 2;
-
-    sub_sheets_url = sheet_instance.cell(col=1, row=sub_sheet_row_index).value
-
-    while sub_sheets_url!="" and sub_sheets_url!=None:
-
-
-        sub_sheet  = client.open_by_url(sub_sheets_url)
-
-
-        sub_sheet = open_worksheet(sub_sheet , sub_sheets_url)
+    while True:
+        time.sleep(15)
 
 
 
-        sub_sheet_update_date = sub_sheet.cell(col=13, row=2).value
-        sub_sheet_pixify_title = sheet_instance.cell(col=2, row=sub_sheet_row_index).value
+        sheet = client.open_by_url(main_sheet_url)
 
-        if sub_sheets_url in sheet_records.keys():
+        logging.warning('Opened Main Sheet')
 
-            if(sheet_records[sub_sheets_url] != sub_sheet_update_date):
-                process_subsheet(sub_sheet,sub_sheet_pixify_title)
+        sheet_instance = sheet.get_worksheet(0)
 
+        sheet_values = sheet_instance.get_all_values()
+        sub_sheet_row_index = 2;
 
-        else:
-
-            sheet_records[sub_sheets_url] = sub_sheet_update_date
-            process_subsheet(sub_sheet,sub_sheet_pixify_title)
-
-        sub_sheet_row_index+=1
         sub_sheets_url = sheet_instance.cell(col=1, row=sub_sheet_row_index).value
 
-    x=0
+
+        prev_sub_sheet_index = sub_sheet_row_index
+        while sub_sheets_url!="" and sub_sheets_url!=None:
+            time.sleep(2)
+            try:
+                prev_sub_sheet_index = sub_sheet_row_index
+
+                enable_check = sheet_instance.cell(col=3, row=sub_sheet_row_index).value
+
+                if(enable_check == "1"):
+
+                    logging.warning('Checking for sheet :'+sub_sheets_url )
+                    sub_sheet  = client.open_by_url(sub_sheets_url)
+
+
+                    sub_sheet = open_worksheet(sub_sheet , sub_sheets_url)
+
+
+
+                    sub_sheet_update_date = sub_sheet.cell(col=13, row=2).value
+                    sub_sheet_pixify_title = sheet_instance.cell(col=2, row=sub_sheet_row_index).value
+
+                    if sub_sheets_url in sheet_records.keys():
+
+                        if(sheet_records[sub_sheets_url] != sub_sheet_update_date):
+
+                            print("Sheet date changed ",sub_sheets_url)
+                            try:
+                                process_subsheet(sub_sheet,sub_sheet_pixify_title)
+                            except Exception as e:
+                                error_msg = 'Issue in Processing Sheet :' + sub_sheets_url + ' :' + str(e)
+                                logging.error(error_msg)
+
+
+
+                    else:
+                        logging.warning('New Sheet Processing for first time :' + sub_sheets_url)
+                        sheet_records[sub_sheets_url] = sub_sheet_update_date
+                        try :
+                            process_subsheet(sub_sheet,sub_sheet_pixify_title)
+                        except Exception as e:
+                            error_msg = 'Issue in Processing Sheet :' + sub_sheets_url + ' :' + str(e)
+                            logging.error(error_msg)
+
+                sub_sheet_row_index += 1
+                sub_sheets_url = sheet_instance.cell(col=1, row=sub_sheet_row_index).value
+
+            except Exception as e:
+
+                if(sub_sheet_row_index == prev_sub_sheet_index):
+                    sub_sheet_row_index += 1
+                error_msg = 'Issue in main Iteration for file :'+sub_sheets_url +' :'+ str(e)
+                logging.error(error_msg)
